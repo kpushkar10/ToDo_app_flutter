@@ -13,7 +13,7 @@ class _PendingToDoState extends State<PendingToDo> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Text("PEnding"),
+      child: Text("Pending"),
     );
   }
 }
