@@ -1,26 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:todo_app/constants/colors.dart';
 
+import '../constants/colors.dart';
 import '../models/todo.dart';
 
-class TodoItem extends StatefulWidget {
+class DoneToDoTile extends StatefulWidget {
   final ToDo item;
-  final onToDoChange;
   final onDeleteItem;
-  const TodoItem({
-    Key? key,
-    required this.item,
-    required this.onToDoChange,
-    required this.onDeleteItem,
-  }) : super(key: key);
+  const DoneToDoTile({Key? key, required this.item, this.onDeleteItem})
+      : super(key: key);
 
   @override
-  State<TodoItem> createState() => _TodoItemState();
+  State<DoneToDoTile> createState() => _DoneToDoTileState();
 }
 
-class _TodoItemState extends State<TodoItem> {
-  void changeIsDone(ToDo todo) => {};
-
+class _DoneToDoTileState extends State<DoneToDoTile> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -28,39 +21,36 @@ class _TodoItemState extends State<TodoItem> {
       child: Card(
         elevation: 0,
         child: ListTile(
-          onTap: () {
-            widget.onToDoChange(widget.item);
-          },
+          onTap: () {},
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20),
           ),
           tileColor: Colors.white,
           contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-          leading: widget.item.isDone
-              ? IconButton(
-                  icon: Icon(Icons.check_box),
-                  color: tdBlue,
-                  onPressed: () {
-                    setState(() {
-                      widget.item.isDone = false;
-                    });
-                  })
-              : IconButton(
-                  icon: Icon(Icons.check_box_outline_blank),
-                  color: tdBlue,
-                  onPressed: () {
-                    setState(() {
-                      widget.item.isDone = true;
-                    });
-                  },
-                ),
+          // leading: widget.item.isDone
+          //     ? IconButton(
+          //         icon: Icon(Icons.check_box),
+          //         color: tdBlue,
+          //         onPressed: () {
+          //           setState(() {
+          //             widget.item.isDone = false;
+          //           });
+          //         })
+          //     : IconButton(
+          //         icon: Icon(Icons.check_box_outline_blank),
+          //         color: tdBlue,
+          //         onPressed: () {
+          //           setState(() {
+          //             widget.item.isDone = true;
+          //           });
+          //         },
+          //       ),
           title: Text(
             widget.item.todoText.toString(),
             style: TextStyle(
               fontSize: 16,
-              color: widget.item.isDone ? tdBlack.withOpacity(0.5) : tdBlack,
-              decoration:
-                  widget.item.isDone ? TextDecoration.lineThrough : null,
+              color: tdBlack.withOpacity(0.5),
+              decoration: TextDecoration.lineThrough,
             ),
           ),
           trailing: Container(

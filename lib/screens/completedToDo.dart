@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:todo_app/models/todo.dart';
+import 'package:todo_app/widgets/updated_todo_item.dart';
 
 import '../widgets/todo_Item.dart';
 
@@ -39,10 +40,10 @@ class _CompletedToDoState extends State<CompletedToDo> {
                   shrinkWrap: true,
                   itemCount: completed.length,
                   itemBuilder: (context, index) {
-                    return TodoItem(
+                    return DoneToDoTile(
                       item: completed[index],
-                      onToDoChange: () {},
-                      onDeleteItem: () {},
+                      
+                      onDeleteItem: _handleDelete,
                     );
                   }),
             ),
@@ -50,5 +51,10 @@ class _CompletedToDoState extends State<CompletedToDo> {
         ]),
       ),
     );
+  }
+  void _handleDelete(String delId) {
+    setState(() {
+      completed.removeWhere((item) => item.id == delId);
+    });
   }
 }

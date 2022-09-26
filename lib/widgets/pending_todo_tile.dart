@@ -1,26 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:todo_app/constants/colors.dart';
+import 'package:flutter/src/foundation/key.dart';
+import 'package:flutter/src/widgets/framework.dart';
 
+import '../constants/colors.dart';
 import '../models/todo.dart';
 
-class TodoItem extends StatefulWidget {
+class PendigToDoTile extends StatefulWidget {
   final ToDo item;
   final onToDoChange;
   final onDeleteItem;
-  const TodoItem({
-    Key? key,
-    required this.item,
-    required this.onToDoChange,
-    required this.onDeleteItem,
-  }) : super(key: key);
+  const PendigToDoTile(
+      {Key? key,
+      required this.onToDoChange,
+      required this.item,
+      this.onDeleteItem})
+      : super(key: key);
 
   @override
-  State<TodoItem> createState() => _TodoItemState();
+  State<PendigToDoTile> createState() => _PendigToDoTileState();
 }
 
-class _TodoItemState extends State<TodoItem> {
-  void changeIsDone(ToDo todo) => {};
-
+class _PendigToDoTileState extends State<PendigToDoTile> {
   @override
   Widget build(BuildContext context) {
     return Container(

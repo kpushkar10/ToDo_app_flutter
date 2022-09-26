@@ -25,6 +25,7 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        resizeToAvoidBottomInset: false,
         drawer: Container(
           width: 300,
           child: Drawer(
@@ -48,7 +49,11 @@ class _HomeState extends State<Home> {
                       tileColor: _pageIndex == 0
                           ? Colors.grey.shade300
                           : Colors.transparent,
-                      title: const Text('All'),
+                      title: Text('All',
+                          style: TextStyle(
+                              color: _pageIndex == 0
+                                  ? Colors.blue
+                                  : Colors.black)),
                       onTap: () {
                         setState(() {
                           _pageIndex = 0;
@@ -69,7 +74,11 @@ class _HomeState extends State<Home> {
                       tileColor: _pageIndex == 1
                           ? Colors.grey.shade300
                           : Colors.transparent,
-                      title: const Text('Completed'),
+                      title: Text('Completed',
+                          style: TextStyle(
+                              color: _pageIndex == 1
+                                  ? Colors.blue
+                                  : Colors.black)),
                       onTap: () {
                         setState(() {
                           _pageIndex = 1;
@@ -90,7 +99,11 @@ class _HomeState extends State<Home> {
                       tileColor: _pageIndex == 2
                           ? Colors.grey.shade300
                           : Colors.transparent,
-                      title: const Text('Pending'),
+                      title: Text('Pending',
+                          style: TextStyle(
+                              color: _pageIndex == 2
+                                  ? Colors.blue
+                                  : Colors.black)),
                       onTap: () {
                         setState(() {
                           _pageIndex = 2;

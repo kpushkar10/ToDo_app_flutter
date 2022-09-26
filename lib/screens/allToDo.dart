@@ -22,6 +22,7 @@ class _AllToDoState extends State<AllToDo> {
     _foundToDo = todosList;
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -40,7 +41,7 @@ class _AllToDoState extends State<AllToDo> {
           ),
           ClipRRect(
             child: SizedBox(
-              height: 400,
+              height: MediaQuery.of(context).size.height - 275,
               child: ListView.builder(
                   shrinkWrap: true,
                   itemCount: _foundToDo.length,
