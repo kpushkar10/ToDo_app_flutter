@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:todo_app/models/todo.dart';
+import 'package:todo_app/screens/allToDo.dart';
 import 'package:todo_app/widgets/updated_todo_item.dart';
 
 import '../widgets/todo_Item.dart';
@@ -12,13 +13,14 @@ class CompletedToDo extends StatefulWidget {
 }
 
 class _CompletedToDoState extends State<CompletedToDo> {
-  final todosList = ToDo.todoList();
+  // final todosList = ToDo.todoList();
+
   List<ToDo> completed = [];
   @override
   void initState() {
     // TODO: implement initState
     setState(() {
-      completed = todosList.where((item) => item.isDone == true).toList();
+      completed = l1.where((item) => item.isDone == true).toList();
     });
     super.initState();
   }
@@ -35,14 +37,13 @@ class _CompletedToDoState extends State<CompletedToDo> {
           ),
           ClipRRect(
             child: SizedBox(
-              height: 500,
+              height: MediaQuery.of(context).size.height - 200,
               child: ListView.builder(
                   shrinkWrap: true,
                   itemCount: completed.length,
                   itemBuilder: (context, index) {
                     return DoneToDoTile(
                       item: completed[index],
-                      
                       onDeleteItem: _handleDelete,
                     );
                   }),
@@ -52,9 +53,12 @@ class _CompletedToDoState extends State<CompletedToDo> {
       ),
     );
   }
+
   void _handleDelete(String delId) {
     setState(() {
-      completed.removeWhere((item) => item.id == delId);
+      completed
+          .removeAt(completed.indexWhere((element) => element.id == delId));
+      l1.removeAt(l1.indexWhere((element) => element.id == delId));
     });
   }
 }

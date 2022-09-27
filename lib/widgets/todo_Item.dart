@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:todo_app/constants/colors.dart';
+import 'package:todo_app/screens/allToDo.dart';
 
 import '../models/todo.dart';
 
@@ -51,6 +52,10 @@ class _TodoItemState extends State<TodoItem> {
                   onPressed: () {
                     setState(() {
                       widget.item.isDone = true;
+
+                      l1[l1.indexWhere(
+                              (element) => element.id == widget.item.id)]
+                          .isDone = true;
                     });
                   },
                 ),

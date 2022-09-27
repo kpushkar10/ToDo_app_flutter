@@ -25,7 +25,7 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        resizeToAvoidBottomInset: false,
+        resizeToAvoidBottomInset: true,
         drawer: Container(
           width: 300,
           child: Drawer(
@@ -66,7 +66,7 @@ class _HomeState extends State<Home> {
                   Padding(
                     padding: const EdgeInsets.only(top: 10.0),
                     child: ListTile(
-                      shape: RoundedRectangleBorder(
+                      shape: const RoundedRectangleBorder(
                           borderRadius: BorderRadius.only(
                         topRight: Radius.circular(40),
                         bottomRight: Radius.circular(40),
@@ -121,6 +121,7 @@ class _HomeState extends State<Home> {
         backgroundColor: tdBGColor,
         appBar: _buildAppBar(),
         body: PageView(
+          physics: NeverScrollableScrollPhysics(),
           controller: _pageController,
           children: [
             AllToDo(),

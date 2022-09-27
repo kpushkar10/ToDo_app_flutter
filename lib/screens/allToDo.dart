@@ -6,6 +6,29 @@ import '../constants/colors.dart';
 import '../models/todo.dart';
 import '../widgets/todo_Item.dart';
 
+List<ToDo> l1 = [
+  ToDo(id: '01', todoText: 'Morning Excercise', isDone: true),
+  ToDo(id: '02', todoText: 'Buy Groceries', isDone: true),
+  ToDo(
+    id: '03',
+    todoText: 'Check Emails',
+  ),
+  ToDo(
+    id: '04',
+    todoText: 'Team Meeting',
+  ),
+  ToDo(
+    id: '05',
+    todoText: 'Work on mobile apps for 2 hour',
+  ),
+  ToDo(
+    id: '06',
+    todoText: 'Dinner with Jenny',
+  ),
+  ToDo(id: '07', todoText: 'ABC', isDone: true),
+  ToDo(id: '08', todoText: '123', isDone: true),
+];
+
 class AllToDo extends StatefulWidget {
   const AllToDo({Key? key}) : super(key: key);
 
@@ -14,48 +37,60 @@ class AllToDo extends StatefulWidget {
 }
 
 class _AllToDoState extends State<AllToDo> {
-  final todosList = ToDo.todoList();
+  // final todosList = ToDo.todoList();
+
   TextEditingController _todoInputController = TextEditingController();
   List<ToDo> _foundToDo = [];
 
   void initState() {
-    _foundToDo = todosList;
+    _foundToDo = l1;
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10.0),
-      child: Column(
-        children: [
-          searchBox(),
-          Padding(
-            padding: const EdgeInsets.only(top: 10.0),
-            child: Container(
-              child: const Text(
-                "All ToDo's",
-                style: TextStyle(fontSize: 35),
-              ),
+    return Stack(
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10.0),
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                searchBox(),
+                Padding(
+                  padding: const EdgeInsets.only(top: 10.0),
+                  child: Container(
+                    child: const Text(
+                      "All ToDo's",
+                      style: TextStyle(fontSize: 35),
+                    ),
+                  ),
+                ),
+                ClipRRect(
+                  child: SizedBox(
+                    height: MediaQuery.of(context).size.height - 271,
+                    child: ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: _foundToDo.length,
+                        itemBuilder: (context, index) {
+                          return TodoItem(
+                            item: _foundToDo[index],
+                            onToDoChange: _handleToDoChange,
+                            onDeleteItem: _handleDelete,
+                          );
+                        }),
+                  ),
+                ),
+                //Add new ToDo
+              ],
             ),
           ),
-          ClipRRect(
-            child: SizedBox(
-              height: MediaQuery.of(context).size.height - 275,
-              child: ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: _foundToDo.length,
-                  itemBuilder: (context, index) {
-                    return TodoItem(
-                      item: _foundToDo[index],
-                      onToDoChange: _handleToDoChange,
-                      onDeleteItem: _handleDelete,
-                    );
-                  }),
-            ),
-          ),
-          //Add new ToDo
-          Align(
+        ),
+        Positioned(
+          left: 0,
+          right: 0,
+          bottom: 0,
+          child: Align(
             alignment: Alignment.bottomCenter,
             child: Row(
               children: [
@@ -107,9 +142,9 @@ class _AllToDoState extends State<AllToDo> {
                 )
               ],
             ),
-          )
-        ],
-      ),
+          ),
+        )
+      ],
     );
   }
 
@@ -118,7 +153,7 @@ class _AllToDoState extends State<AllToDo> {
       return;
     }
     setState(() {
-      todosList.add(ToDo(
+      l1.add(ToDo(
           id: DateTime.now().millisecondsSinceEpoch.toString(),
           todoText: todoText,
           isDone: false));
@@ -129,9 +164,9 @@ class _AllToDoState extends State<AllToDo> {
   void _runFilter(String entererKeyword) {
     List<ToDo> results = [];
     if (entererKeyword.isEmpty) {
-      results = todosList;
+      results = l1;
     } else {
-      results = todosList
+      results = l1
           .where((item) => item.todoText!
               .toLowerCase()
               .contains(entererKeyword.toLowerCase()))
@@ -144,13 +179,14 @@ class _AllToDoState extends State<AllToDo> {
 
   void _handleToDoChange(ToDo todo) {
     setState(() {
-      todo.isDone = !todo.isDone;
+      l1[l1.indexWhere((element) => element.id == todo.id)].isDone =
+          !todo.isDone;
     });
   }
 
   void _handleDelete(String delId) {
     setState(() {
-      todosList.removeWhere((item) => item.id == delId);
+      l1.removeAt(l1.indexWhere((element) => element.id == delId));
     });
   }
 

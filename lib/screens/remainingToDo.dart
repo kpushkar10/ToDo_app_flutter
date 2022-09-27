@@ -16,13 +16,13 @@ class PendingToDo extends StatefulWidget {
 }
 
 class _PendingToDoState extends State<PendingToDo> {
-  final todosList = ToDo.todoList();
+  // final todosList = ToDo.todoList();
   List<ToDo> pending = [];
   @override
   void initState() {
     // TODO: implement initState
     setState(() {
-      pending = todosList.where((item) => item.isDone == false).toList();
+      pending = l1.where((item) => item.isDone == false).toList();
     });
     super.initState();
   }
@@ -59,13 +59,15 @@ class _PendingToDoState extends State<PendingToDo> {
 
   void _handleToDoChange(ToDo todo) {
     setState(() {
-      todo.isDone = !todo.isDone;
+      l1[l1.indexWhere((element) => element.id == todo.id)].isDone =
+          !todo.isDone;
     });
   }
 
   void _handleDelete(String delId) {
     setState(() {
       pending.removeWhere((item) => item.id == delId);
+      l1.removeAt(l1.indexWhere((element) => element.id == delId));
     });
   }
 }
